@@ -15,13 +15,13 @@
     }
 
     * {
-      font-size: 20px;
+      font-size: 30px;
       color: black;
       font: sans-serif;
     }
 
     html {
-      font-size: 20px;
+      font-size: 20px; /*для rem*/
     }
 
     h1 {
@@ -35,6 +35,29 @@
       color: blue;
     }
 
+    span{
+      width: 100px;
+      height: 100px;
+      display: block;
+      background-image:url("Images/drawing.svg");
+      background-size: cover;
+    }
+
+    span.abs{
+      position: absolute;
+      left: 50vw;
+      top: 50vh;
+    }
+    span.rel{
+      position: relative;
+      left: 50vw;
+      top: 50vh;
+    }
+    span.stat{
+      position: static;
+      left: 50vw;
+      top: 50vh;
+    }
 
     h1+.cl {
       color: red;
@@ -58,45 +81,66 @@
     p {
       animation-name: rot;
       animation-duration: 3s;
+      animation-fill-mode: backwards;
+      animation-delay: 2s;
+      animation-iteration-count: 2;
+      animation-direction: alternate;
     }
 
     body>*:hover {
       animation-name: rot;
-      animation-duration: 1s;
+      animation-duration: 3s;
     }
 
 
-    @keyframes rot {
+    @keyframes rot {                        /*animation*/
       from {
+        transform: rotate3d(10, 50, 2, 10deg);
+        /*transform: scale(0.1, 1);*/
         font-size: 0;
         background: #33ff33;
         border: 2px solid #0000ff;
       }
 
       to {
+        transform: rotate3d(10, 50, 2, 720deg);
+        /*transform: scale(1, 0.1);*/
         font-size: calc(var(--fontsize)*5);
-        background: #ff3333;
+        background-image: #ff33ff;
         border: 100px solid #ff0000;
-        transform: rotate(360deg);
       }
     }
 
+
+    body {                                         /*media query*/
+      background-color: tan;
+      color: black;
+    }
+    @media screen and (max-width: 992px) {
+  body {
+    background-color: blue;
+    color: white;
+  }
+}
+
+
     p:nth-child(2n+1) {
       /* counts every 2nd+1 p in each parent element! */
-      transform: rotate(20deg);
+      transform: rotate(1deg);
       border: 2px solid #ff0000;
     }
 
     p:nth-child(2n) {
-      transform: rotate(700deg);
+      transform: rotate(719deg);
       border: 2px solid #0000ff;
     }
-
-
 
     p::after {
       content: "(все правильно, текст и должен быть нечитаем и скошен)";
     }
+
+
+
 
     #anc1 {}
 
@@ -122,8 +166,9 @@
 
   <article>
     Здесь могла бы быть ваша статья.
-    <p>Параграф статьи</p>
-    <p>Параграф статьи</p>
+    <p style="font-size: 110%;">Параграф статьи 110%</p>
+    <p style="font-size: 2cm;">Параграф статьи 2cm</p>
+    <p style="font-size: 2vw;">Параграф статьи 2vw</p>
   </article>
 
   <section>
@@ -175,8 +220,31 @@
   </select>
 
   <br>
+  <br>
 
-  <img src="Images/drawing.svg" />
+<table border="1" width="auto" height="auto">
+  <tr >
+  <td>текст до картинки inline-block<span style="display: inline-block">text</span>текст после картинки</td>
+</tr>
+  <tr>
+  <td>текст до картинки block<span style="display: block"></span>текст после картинки</td>
+  </tr>
+  <tr>
+  <td>текст до картинки inline<span style="display: inline">randomtext</span>текст после картинки</td>
+</tr>
+
+</table>
+
+<br>
+
+
+
+
+ <br><span class="abs">absolute 50vw 50vh</span>
+ <br><span class="rel">relative 50vw 50vh</span>
+<br><span class="stat">static 50 vw 50vh</span>
+
+
 
 </body>
 
