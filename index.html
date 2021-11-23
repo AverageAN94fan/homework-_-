@@ -1,71 +1,251 @@
 <!DOCTYPE html>
-<html><head>
-<meta charset="utf-8"> <!-- кодировка -->
+<html>
 
-<title>Загадочная надпись на "корешке" вашего браузера</title>
+<head>
+  <meta charset="utf-8"> <!-- кодировка -->
+
+  <title>Загадочная надпись на "корешке" вашего браузера</title>
+
+  <style>
+    :root {
+      --degr: 0;
+      --color: #ff0000;
+      --img: "Images/animegirl.svg";
+      --fontsize: 30px;
+    }
+
+    * {
+      font-size: 30px;
+      color: black;
+      font: sans-serif;
+    }
+
+    html {
+      font-size: 20px; /*для rem*/
+    }
+
+    h1 {
+      font-size: 50px;
+      color: green;
+    }
+
+
+    .cl>h1 {
+      /* each h1 inside .cl (body in my case) */
+      color: blue;
+    }
+
+    span{
+      width: 100px;
+      height: 100px;
+      display: block;
+      background-image:url("Images/drawing.svg");
+      background-size: cover;
+    }
+
+    span.abs{
+      position: absolute;
+      left: 50vw;
+      top: 50vh;
+    }
+    span.rel{
+      position: relative;
+      left: 50vw;
+      top: 50vh;
+    }
+    span.stat{
+      position: fixed;
+      left: 50vw;
+      top: 50vh;
+    }
+
+    h1+.cl {
+      color: red;
+    }
+
+
+    header h1 {
+      font: Serif;
+    }
+
+    .special {
+      font-style: italic;
+      flex-wrap: wrap;
+    }
+
+    a:visited {
+      color: #ff1111;
+    }
+
+
+    p {
+      animation-name: rot;
+      animation-duration: 3s;
+      animation-fill-mode: backwards;
+      animation-delay: 2s;
+      animation-iteration-count: 2;
+      animation-direction: alternate;
+    }
+
+    body>*:hover {
+      animation-name: rot;
+      animation-duration: 3s;
+    }
+
+
+    @keyframes rot {                        /*animation*/
+      from {
+        transform: rotate3d(10, 50, 2, 10deg);
+        /*transform: scale(0.1, 1);*/
+        font-size: 0;
+        background: #33ff33;
+        border: 2px solid #0000ff;
+      }
+
+      to {
+        transform: rotate3d(10, 50, 2, 720deg);
+        /*transform: scale(1, 0.1);*/
+        font-size: calc(var(--fontsize)*5);
+        background-image: #ff33ff;
+        border: 100px solid #ff0000;
+      }
+    }
+
+
+    body {                                         /*media query*/
+      background-color: tan;
+      color: black;
+    }
+    @media screen and (max-width: 992px) {
+  body {
+    background-color: blue;
+    color: white;
+  }
+}
+
+
+    p:nth-child(2n+1) {
+      /* counts every 2nd+1 p in each parent element! */
+      transform: rotate(1deg);
+      border: 2px solid #ff0000;
+    }
+
+    p:nth-child(2n) {
+      transform: rotate(719deg);
+      border: 2px solid #0000ff;
+    }
+
+    p::after {
+      content: "(все правильно, текст и должен быть нечитаем и скошен)";
+    }
+
+
+
+    #anc1 {}
+
+    .ref {
+      color: magenta;
+      font-size: 100%;
+      transform: rotate(90deg);
+    }
+
+    body>*:hover {
+      background-image: url("Images/animegirl.svg");
+    }
+  </style>
 
 </head>
-<body>
 
-<header>
-    <h1>Немного заглавного текста</h1>  <!-- выделение заголовка -->
-</header>
+<body class="cl">
+  <h1 class="cl special" style="font-size: 2rem;">Blue text 2em italic</h1> <!-- <h1> .cl вне header, до <h1> -->
+  <h1 class="cl">Red text before 2em<h1 class="cl special" style="font-size: 2em;">Red text 2em italic</h1></h1>
+  <h1 class="cl" style="font-size: 2em;">Red text 2rem</h1> <!-- <h1> .cl вне header, после <h1> -->
+  <header style="background: #e0e0ff; border: 2px solid #e66465;">
+    <h1>Немного заглавного текста</h1> <!-- <h1> внутри header, после <h1> -->
+  </header>
 
-<article>
+  <article>
     Здесь могла бы быть ваша статья.
-</article>
+    <p style="font-size: 110%;">Параграф статьи 110%</p>
+    <p style="font-size: 2cm;">Параграф статьи 2cm</p>
+    <p style="font-size: 2vw;">Параграф статьи 2vw</p>
+  </article>
 
-<section>
-   <h1>Заголовок блока</h1>
-   <p>Содержимое блока</p>
-</section>
-  
+  <section>
+    <h1>Заголовок блока</h1>
+    <p>Содержимое блока</p>
+    <p>Еще немного обычного текста со спецсимволом &nbsp;&nbsp;&nbsp;&nbsp; &#1161;</p>
+  </section>
 
-<p>Еще немного обычного текста со спецсимволом &nbsp;&nbsp;&nbsp;&nbsp; &#1161;</p>
 
-<br>
 
-<a href="trap.html">Это ловушка!</a> <!-- отправит вас в ловушку -->
-&nbsp;&nbsp;&nbsp;<a href="https://wikipedia.org">А это не ловушка</a></p> <!-- отправит вас на википедию по защищенному протоколу -->
+  <br>
+  <p class="ref">
+    <a href="trap.html" accesskey="t">Это ловушка!</a> <!-- отправит вас в ловушку -->
+    &nbsp;&nbsp;&nbsp;<a href="https://wikipedia.org" accesskey="t">А это не ловушка</a>
+  </p> <!-- отправит вас на википедию по защищенному протоколу -->
+  <table border="1" width="420px" height="auto">
 
-<table border="1" width="420px" height = "auto">
+    <tr>
+      <th scope="col">1 столбец</th>
+      <th scope="col">2 столбец</th>
+      <th scope="col" class="special">3 столбец</th>
+      <th scope="col">4 столбец</th>
+    </tr>
 
-<tr>
- <th scope="col">1 столбец</th>
- <th scope="col">2 столбец</th>
- <th scope="col">3 столбец</th>
- <th scope="col">4 столбец</th>
+    <tr>
+      <td>1 строка 1 столбец</td>
+      <td>1 строка 2 столбец</td>
+      <td class="special">здесь может быть ваша реклама</td>
+      <td>1 строка 4 столбец</td>
+    </tr>
+
+  </table>
+
+  <ul draggable="false">
+    <li>Список, содержащий</li>
+    <li>семантический</li>
+    <li><em>тег</em></li>
+    <li>которого</li>
+    <li>кажется</li>
+    <li>не было на паре</li>
+  </ul>
+
+  <label for="choice">Выбери</label> <!-- select с якорем -->
+  <select name="choice" id="anc1">
+    <option value="жизнь"><b>жизнь</b></option>
+    <option value="холодильник">холодильник</option>
+    <option value="подъем на работу в 6 утра">подъем на работу в 6 утра</option>
+    <option value="кофемолку Bosh">кофемолку Bosh</option>
+  </select>
+
+  <br>
+  <br>
+
+<table border="1" width="auto" height="auto">
+  <tr >
+  <td>текст до картинки inline-block<span style="display: inline-block">text</span>текст после картинки</td>
 </tr>
-
-<tr>
- <td>1 строка 1 столбец</td>
- <td>1 строка 2 столбец</td>
- <td>здесь может быть ваша реклама</td>
- <td>1 строка 4 столбец</td>
+  <tr>
+  <td>текст до картинки block<span style="display: block"></span>текст после картинки</td>
+  </tr>
+  <tr>
+  <td>текст до картинки inline<span style="display: inline">randomtext</span>текст после картинки</td>
 </tr>
 
 </table>
 
-<ul>
-  <li>Список, содержащий</li>
-  <li>семантический</li>
-  <li><em>тег</em></li>
-  <li>которого</li>
-  <li>кажется</li>
-  <li>не было на паре</li>
-</ul> 
-
-<label for="choice">Выбери</label>
-<select name="choice" id="choice"> 
-  <option value="жизнь"><b>жизнь</b></option>
-  <option value="холодильник">холодильник</option>
-  <option value="подъем на работу в 6 утра">подъем на работу в 6 утра</option>
-  <option value="кофемолку Bosh">кофемолку Bosh</option>
-</select>
-
 <br>
 
-<img src="Images/drawing.svg" />
+
+
+
+ <br><span class="abs">absolute 50vw 50vh</span>
+ <br><span class="rel">relative 50vw 50vh</span>
+<br><span class="stat">static 50 vw 50vh</span>
+
+
 
 </body>
+
 </html>
