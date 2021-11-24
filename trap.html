@@ -7,156 +7,144 @@
   <title>You're trapped</title>
   <style></style>
 </head>
-
 <body>
-  <script>
-    "strict mode";
+<script>
+  "strict mode";
 
-    function plusone(a) {
-      return a + 1;
+  function plusone(a) {
+  return a+1;
+}
+
+//let
+
+var a=0;
+{
+  let a=5;
+}
+  {
+    for(i=0;i<9;i++){
+      a=plusone(a);
     }
-
-    //let
-
-    var a = 0; {
-      let a = 5;
-    } {
-      for (i = 0; i < 9; i++) {
-        a = plusone(a);
-      }
-      console.log("a=" + a);
-    }
+    console.log("a="+a);
+  }
 
 
-    //var
+  //var
 
-    var b = 0; {
-      var b = 5;
-    } {
-      for (let i = 0; i < 9; i++) {
-        b = plusone(b);
-      }
-      console.log("b=" + b);
-    }
-
-    // == vs ===
-
+var b=0;
+  {
+    var b=5;
+  }
     {
-      let a = '1';
-      let b = 1;
-      console.log("b==a " + (b == a)); //почему false если без дополнительных скобок?
-      console.log("b===a " + (b === a)); //почему false если без дополнительных скобок?
-    }
-
-    //typeof()
-
-    {
-      let a = 42;
-      console.log("a=42, typeof(a)=" + typeof(a));
-      a = '42';
-      console.log("a=\'42\', typeof(a)=" + typeof(a));
-      a = true;
-      console.log("a=true, typeof(a)=" + typeof(a));
-      a = [1, 2];
-      console.log("a=[1,2], typeof(a)=" + typeof(a));
-      a = {};
-      console.log("a={}, typeof(a)=" + typeof(a));
-      a = (a, b) => a * b
-      console.log("a=(a,b) => a*b, typeof(a)=" + typeof(a));
-    }
-    // 3 shades of for
-    {
-      let a = 0;
-      for (; a < 5; a++) {
-        a = plusone(a);
+      for(let i=0;i<9;i++){
+        b=plusone(b);
       }
-      for (;;) {
-        if (a >= 10) break;
-        a = plusone(a);
-      }
-      for (let i = 0; i < 5; i++) {
-        a = plusone(a);
-      }
-      console.log("a=" + a);
+      console.log("b="+b);
     }
 
-    //global declaration/usage/deletion
-    var global = 42;
+// == vs ===
 
-    function globglob() {
-      window.global1 = "42?"
-    }
-    globglob(); {
-      {
-        {
-          console.log("global=" + global);
-          console.log("global1=" + global1);
-        }
-      }
-    }
+{
+  let a='1';
+  let b=1;
+  console.log("b==a "+ (b==a));  //почему false если без дополнительных скобок?
+  console.log("b===a "+ (b===a));  //почему false если без дополнительных скобок?
+}
 
-    delete window.global;
-    delete window.global1;
-    console.log("after delete typeof(global)=" + typeof(global));
-    console.log("after delete typeof(global1)=" + typeof(global1));
+//typeof()
 
-    //arrow functions
-    {
+{
+let a=42;
+console.log("a=42, typeof(a)=" + typeof(a));
+a='42';
+console.log("a=\'42\', typeof(a)=" + typeof(a));
+a=true;
+console.log("a=true, typeof(a)=" + typeof(a));
+a=[1,2];
+console.log("a=[1,2], typeof(a)=" + typeof(a));
+a={};
+console.log("a={}, typeof(a)=" + typeof(a));
+a = (a,b) => a*b
+console.log("a=(a,b) => a*b, typeof(a)=" + typeof(a));
+}
+// 3 shades of for
+{
+  let a=0;
+  for(;a<5;a++){
+    a=plusone(a);
+  }
+  for(;;){
+    if(a>=10)break;
+    a=plusone(a);
+  }
+  for(let i=0;i<5;i++){
+    a=plusone(a);
+  }
+  console.log("a=" + a);
+}
 
-      let lin = (x, a, b) => a * x + b
-      let iseq = (a, b) => {
-        return a === b;
-      }
+//global declaration/usage/deletion
+var global=42;
+function globglob(){
+  window.global1="42?"
+  globalThis["myglobalvar"]="42!"
+}
+globglob();
+{{{
+console.log("global=" + global);
+console.log("global1=" + global1);
+console.log("myglobalvar=" + myglobalvar);
 
-      console.log("lin(5,1,2)=" + lin(5, 1, 2));
-      console.log("iseq(2,3)=" + iseq(2, 3));
-    }
-    //destructurisation
-    {
-      let [a, b, c, ...d] = [1, 2, 3, 4, 5, "a"];
-      console.log("let [a,b,c,...d] = [1,2,3,4,5,\'a\'], (a+b)*c=" + ((a + b) * c));
-      console.log("let [a,b,c,...d] = [1,2,3,4,5,\'a\'], d=" + d);
-      //object
-      let cat = {
-        name: "Whatever",
-        weight: 1,
-        height: 2
-      };
-      //obj destructurisation
-      let {
-        name,
-        height,
-        weight: fat
-      } = cat;
-      console.log("cat.height=" + cat.height);
-      console.log("fat=" + fat);
-      //noname destructurisation
-      let oh, fck;
-      ({
-        oh,
-        fck
-      } = {
-        oh: "oh ",
-        fck: "fck!"
-      });
+}}}
 
-      // Calculate milliseconds in a day
-      const minute = 1000 * 60;
-      const hour = minute * 60;
-      const day = hour * 24;
+delete window.global;
+delete window.global1;
+delete globalThis["myglobalvar"];
+console.log("after delete typeof(global)=" + typeof(global));
+console.log("after delete typeof(global1)=" + typeof(global1));
+console.log("after delete myglobalvar=" + typeof(myglobalvar));
+//arrow functions
+{
 
-      let time = Math.round((Date.now() % day) / day * 24);
+let lin = (x,a,b) => a*x+b
+let iseq = (a,b) => {return a===b;}
 
-      console.log("oh+fck+it's + Date.now + now!=" + (oh + fck + "it's " + time + " utc now!"));
-    }
+console.log("lin(5,1,2)=" + lin(5,1,2));
+console.log("iseq(2,3)=" + iseq(2,3));
+}
+//destructurisation
+{let [a,b,c,...d] = [1,2,3,4,5,"a"];
+  console.log("let [a,b,c,...d] = [1,2,3,4,5,\'a\'], (a+b)*c=" + ((a+b)*c));
+  console.log("let [a,b,c,...d] = [1,2,3,4,5,\'a\'], d=" + d);
+  //object
+  let cat = {
+  name: "Whatever",
+  weight: 1,
+  height: 2
+};
+//obj destructurisation
+  let {name,height,weight:fat}=cat;
+  console.log("cat.height=" + cat.height);
+  console.log("fat=" + fat);
+//noname destructurisation
+  let oh, fck;
+  ({oh, fck} = {oh:"oh ", fck:"fck!"});
 
-    //
-  </script>
+  // Calculate milliseconds in a day
+  const minute = 1000 * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
 
-  Hello there!
-  <br>
+  let time = Math.round((Date.now() % day)/day * 24);
 
-  <img src="Images/animegirl.svg" />
+  console.log("oh+fck+it's + Date.now + now!=" + (oh+fck+"it's "+time+" utc now!"));
+}
+
+//
+</script>
+Hello there!
+<br>
+
+<img src="Images/animegirl.svg" />
 </body>
-
 </html>
