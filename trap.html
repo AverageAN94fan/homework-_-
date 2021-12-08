@@ -143,7 +143,7 @@ console.log("iseq(2,3)=" + iseq(2,3));
 //hw2
 
 class dream {
-#secret
+#secret;
   constructor(time){
     this.#secret = "every hour you don't sleep shortens your life by an hour"
     this.length = time;
@@ -323,6 +323,19 @@ Object.assign(User.prototype, sayHiMixin);
 
 // now User can say hi
 new User("your dudedeness").sayHi(); // Hello your dudeness!
+
+
+//mixin2
+
+let MyMixin = (superclass) => class extends superclass {
+  foo() {
+    console.log(`foo from ${this.name}`);
+  }
+};
+class MyClass extends MyMixin(flower) {
+}
+let c = new MyClass();
+c.foo(); // prints "foo from MyMixin"
 
 
 
