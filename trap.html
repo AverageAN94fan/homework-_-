@@ -151,7 +151,7 @@ class dream {
     console.log(this.#secret);
   }
   wake(){
-    console.log("nah, another damn morning -_-")
+    console.log("nah, another damn morning -_-");
   }
 }
 
@@ -169,7 +169,7 @@ class nightmare extends dream {
 
 let mydream = new nightmare("nah, i don't need it");
 //console.log(mydream.#secret); restricted
-console.log(mydream.quality + mydream.wake()); // does wake(), prints quality, prints udefined, wtf?!
+mydream.wake(); // does wake(), prints quality, prints udefined, wtf?!
 
 //через функцию
 function monster(headamount, limbamount){
@@ -217,8 +217,9 @@ function flower(){
 flower.prototype.photosyntesis="yes";
 
 //изменение прототипа
-evilHydra.__proto__=flower.prototype;
+//evilHydra.__proto__=flower.prototype; меня осудили =(
 
+Object.setPrototypeOf(Hydra.prototype, flower.prototype);
 
 //console.log(evilHydra.say("Grr"));
 //получение прототипа
@@ -276,6 +277,17 @@ Object.defineProperty(Sally,'decapitaliser',{
 console.log(Sally.decapitaliser)
 Sally.decapitaliser = "DecapiTaLIZeMe!"
 console.log(Sally.decapitaliser)
+
+//call method from another object
+let bill = {
+  hit: function(power) {
+    console.log( this.name +' just hit you with ' + power + " power")
+  }
+}
+let bob = {
+  name: "Bob"
+}
+bill.hit.call(bob,100);
 
 
 //new string method
