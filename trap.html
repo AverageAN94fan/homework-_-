@@ -140,11 +140,215 @@ console.log("iseq(2,3)=" + iseq(2,3));
   console.log("oh+fck+it's + Date.now + now!=" + (oh+fck+"it's "+time+" utc now!"));
 }
 
-//
+//hw2
+
+class dream {
+#secret;
+  constructor(time){
+    this.#secret = "every hour you don't sleep shortens your life by an hour"
+    this.length = time;
+    this.quality = "normal";
+    console.log(this.#secret);
+  }
+  wake(){
+    this.quality=this.quality+this.quality
+    console.log(this.quality);
+  }
+}
+
+// классовое наследование
+class nightmare extends dream {
+  constructor(time){
+    //shadowy shadow
+    super(time);
+    this.quality="bad";
+  }
+  wake(){
+    super.wake() //I got a lil' problem here, look str 168 comment for details
+  }
+}
+
+let mydream = new nightmare("nah, i don't need it");
+//console.log(mydream.#secret); restricted
+mydream.wake(); // does wake(), prints quality, prints udefined, wtf?!
+
+//через функцию
+function monster(headamount, limbamount){
+  this.name = "Monster"
+  this.heads = headamount;
+  this.limbs = limbamount;
+  this.reaction = function(stress) {
+    if (stress>=10) {return "agressive";}
+    else {return "peaceful";}
+  };
+}
+
+
+let stich = new monster(1,6);
+
+console.log(stich.reaction(626));
+
+// прототипное наследование
+
+
+monster.prototype = {
+
+  say: function(words) {
+    return this.name +' says: '+ words;
+  }
+};
+
+function Hydra(){
+  this.name = "Hydra";
+}
+
+
+//назначение прототипа
+Hydra.prototype=Object.create(monster.prototype)
+
+evilHydra = new Hydra (10,2)
+
+console.log(evilHydra.say("Grr"));
+//console.log(evilHydra.reaction(5));
+
+function flower(){
+  this.name="Flower";
+};
+
+flower.prototype.photosyntesis="yes";
+
+//изменение прототипа
+//evilHydra.__proto__=flower.prototype; меня осудили =(
+
+Object.setPrototypeOf(Hydra.prototype, flower.prototype);
+
+//console.log(evilHydra.say("Grr"));
+//получение прототипа
+console.log(evilHydra.photosyntesis);
+console.log(Hydra.prototype.__proto__);
+
+//свойства
+
+let Sally = {
+
+  name: "Sally",
+  attitude: "Kind",
+  color: "Blue"
+};
+
+Object.defineProperty(Sally,'name',{
+  configurable: false,// не позволяет вызывать методы defineProperty, delete и пр
+  writable: false, //не позволяет изменитьь свойство name
+  enumerable: false, //скрывает name из object.keys
+
+})
+
+Sally.attitude="Angry"
+Sally.name="Shally"
+
+console.log(Sally.name+' ' + Sally.attitude +' '+ Object.keys(Sally));
+delete Sally.name
+console.log(Sally.name)
+
+
+
+Object.defineProperty(Sally,'attitude',{
+  configurable: true,// не позволяет вызывать методы defineProperty, delete и пр
+  writable: true, //не позволяет изменитьь свойство name
+  enumerable: true //скрывает name из object.keys
+})
+Sally.attitude="Kind"
+console.log(Sally.attitude)
+
+console.log(Sally.name+' ' + Sally.attitude +' '+ Object.keys(Sally));
+delete Sally.name
+console.log(Sally.attitude)
+
+
+//side effect?
+Object.defineProperty(Sally,'decapitaliser',{
+  get: function(){
+    return this.attitude
+  },
+  set: function(value){
+  this.attitude=value.charAt(0).toLowerCase()+value.slice(1)
+}
+})
+
+console.log(Sally.decapitaliser)
+Sally.decapitaliser = "DecapiTaLIZeMe!"
+console.log(Sally.decapitaliser)
+
+//call method from another object
+let bill = {
+  hit: function(power) {
+    console.log( this.name +' just hit you with ' + power + " power")
+  }
+}
+let bob = {
+  name: "Bob"
+}
+bill.hit.call(bob,100);
+
+
+//new string method
+
+String.prototype.dupe = function() {
+	return `${this}`+`${this}`
+}
+
+let kiss = "XO";
+console.log(`Normal kiss: ${kiss}`);
+console.log(`Double kiss: ${kiss.dupe()}`);
+
+//mixin
+
+let sayHiMixin = {
+  sayHi() {
+    alert(`Hello ${this.name}`);
+  },
+  sayBye() {
+    alert(`Bye ${this.name}`);
+  }
+};
+
+// usage:
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+// copy the methods  THIS IS THE PLACE WHERE MAGIC HAPPENS!
+Object.assign(User.prototype, sayHiMixin);
+
+// now User can say hi
+new User("your dudedeness").sayHi(); // Hello your dudeness!
+
+
+//mixin2
+
+let MyMixin = (superclass) => class extends superclass {
+  foo() {
+    console.log(`foo from ${this.name}`);
+  }
+};
+class MyClass extends MyMixin(flower) {
+}
+let c = new MyClass();
+c.foo(); // prints "foo from MyMixin"
+
+
+
 </script>
 Hello there!
 <br>
 
 <img src="Images/animegirl.svg" />
+
+
+
+
+
 </body>
 </html>
